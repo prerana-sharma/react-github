@@ -3,18 +3,30 @@ import ListingItem from './commonComponents/ListingItem';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import SearchBar from "./commonComponents/SearchBar";
-import SimplePagination from "./commonComponents/Pagination";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const GithubIssueList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [issueList, setIssueList] = useState([]);
+  const [listData, setListData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+  const getPaginatedData = (data) => {
+    const startIndex = page * 5 - 5;
+    const endIndex = startIndex + 5;
+    setListData(data.slice(startIndex, endIndex));
+  };
   useEffect(() => {
     getIssueList();
   }, [getIssueList, searchQuery]);
 
-
+  useEffect(()=>{
+    getPaginatedData(issueList);
+  },[page])
   const getIssueList = () => {
     try {
       setIsLoading(true);
@@ -28,8 +40,10 @@ const GithubIssueList = () => {
             console.log(data);
             if(searchQuery){
               setIssueList(data.items);
+              getPaginatedData(data.items);
             }else{
               setIssueList(data);
+              getPaginatedData(data);
             }
             setIsLoading(false);
          })
@@ -56,10 +70,12 @@ const GithubIssueList = () => {
         style={{
           border:"1px solid gray",
           borderRadius: "1px"}} >
-        <ListingItem issueList={issueList} />
+        <ListingItem issueList={listData} />
         </Box>
         <div style={{display: "flex !important" }}>
-          <SimplePagination />
+        <Stack spacing={2}>
+          <Pagination count={10} page={page} onChange={handleChange}/>
+        </Stack>
         </div>
       </Container>
     </>
