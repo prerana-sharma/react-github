@@ -8,7 +8,7 @@ const App =() => {
 		<BrowserRouter>
 		<Routes>
 			<Route path="/" element={<GithubIssueList />} />
-			<Route path="details" element={<GithubIssueDetail />} />
+			<Route path="details/:id" element={<GithubIssueDetail />} />
 		</Routes>
 		</BrowserRouter>
 	);

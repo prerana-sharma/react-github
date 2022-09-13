@@ -14,6 +14,8 @@ const SearchBar = ({setSearchQuery}) => (
         variant="outlined"
         placeholder="Search..."
         size="small"
+        style={{
+          width:"100%",}}
       />
       {/*<IconButton type="submit" aria-label="search">
         <SearchIcon style={{ fill: "blue" }} />

@@ -19,8 +19,8 @@ const ListingItem = props => {
 	},[issueList])
 	console.log("issueListArray",issueListArray);
 
-	const handleRoute = () =>{
-		history("/details");
+	const handleRoute = (idNumber) =>{
+		history(`/details/${idNumber}`);
 	}
   return (
     <List sx={{ width: '100%', maxWidth: "100%", bgcolor: 'background.paper' }}>
@@ -30,7 +30,7 @@ const ListingItem = props => {
 					<>
 						<ListItem 
 							alignItems="flex-start" key={i} 
-							onClick={(e) => handleRoute(e) }>
+							onClick={(e) => handleRoute(item.number) }>
 						<ListItemIcon>
 							<ModeStandbyIcon fontSize="small"/>
 						</ListItemIcon>

@@ -37,7 +37,6 @@ const GithubIssueList = () => {
       fetch(apiUrl)
          .then((response) => response.json())
          .then((data) => {
-            console.log(data);
             if(searchQuery){
               setIssueList(data.items);
               getPaginatedData(data.items);
@@ -60,9 +59,6 @@ const GithubIssueList = () => {
     <>
       <Container fixed>
         <Box style={{
-          height : "50px",
-          border:"1px solid gray",
-          borderRadius: "1px",
           marginBottom:"20px"}} >
             <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         </Box>
@@ -74,7 +70,7 @@ const GithubIssueList = () => {
         </Box>
         <div style={{display: "flex !important" }}>
         <Stack spacing={2}>
-          <Pagination count={10} page={page} onChange={handleChange}/>
+          <Pagination count={5} page={page} onChange={handleChange}/>
         </Stack>
         </div>
       </Container>
