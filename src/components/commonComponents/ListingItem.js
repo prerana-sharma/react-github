@@ -7,9 +7,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Typography from '@mui/material/Typography';
 import ModeStandbyIcon from '@mui/icons-material/ModeStandby';
 import DateConvert from "../../helper";
-import history from "../../history";
+import { useNavigate } from 'react-router-dom';
 
 const ListingItem = props => {
+	const history = useNavigate();
 	const { issueList } = props;
   const [issueListArray, setIssueListArray] = useState([]);
 
@@ -19,8 +20,7 @@ const ListingItem = props => {
 	console.log("issueListArray",issueListArray);
 
 	const handleRoute = () =>{
-		console.log("dfjgb");
-		history.push("/details");
+		history("/details");
 	}
   return (
     <List sx={{ width: '100%', maxWidth: "100%", bgcolor: 'background.paper' }}>
