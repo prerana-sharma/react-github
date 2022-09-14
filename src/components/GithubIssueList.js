@@ -7,7 +7,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
 const GithubIssueList = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [issueList, setIssueList] = useState([]);
   const [listData, setListData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,6 +37,7 @@ const GithubIssueList = () => {
       fetch(apiUrl)
          .then((response) => response.json())
          .then((data) => {
+          setIsLoading(false);
             if(searchQuery){
               setIssueList(data.items);
               getPaginatedData(data.items);
@@ -44,7 +45,6 @@ const GithubIssueList = () => {
               setIssueList(data);
               getPaginatedData(data);
             }
-            setIsLoading(false);
          })
          .catch((err) => {
             console.log(err.message);
@@ -66,7 +66,7 @@ const GithubIssueList = () => {
         style={{
           border:"1px solid gray",
           borderRadius: "1px"}} >
-        <ListingItem issueList={listData} />
+        <ListingItem issueList={listData} isLoading={isLoading}/>
         </Box>
         <div style={{display: "flex !important" }}>
         <Stack spacing={2}>

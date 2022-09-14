@@ -8,10 +8,11 @@ import Typography from '@mui/material/Typography';
 import ModeStandbyIcon from '@mui/icons-material/ModeStandby';
 import DateConvert from "../../helper";
 import { useNavigate } from 'react-router-dom';
+import { CircularProgress, Box } from '@mui/material';
 
 const ListingItem = props => {
 	const history = useNavigate();
-	const { issueList } = props;
+	const { issueList, isLoading } = props;
   const [issueListArray, setIssueListArray] = useState([]);
 
 	useEffect(() => {
@@ -23,44 +24,49 @@ const ListingItem = props => {
 	}
   return (
     <List sx={{ width: '100%', maxWidth: "100%", bgcolor: 'background.paper' }}>
-			{issueListArray?.map((item,i)=>{
-				let cretedAt = DateConvert(item.created_at);
-				return (
-					<>
-						<ListItem 
-							alignItems="flex-start" key={i} 
-							onClick={(e) => handleRoute(item.number) }>
-						<ListItemIcon>
-							<ModeStandbyIcon fontSize="small"/>
-						</ListItemIcon>
-							<ListItemText
-								style={{cursor: "pointer"}}
-								primary={item.title}
-								secondary={
-									<React.Fragment>
-										<Typography
-											sx={{ display: 'inline' }}
-											component="span"
-											variant="body2"
-										>
-											{`#${item.number} ${item.state === "open"?"opened":""} ${cretedAt} ago by ${item.user.login}`}
-										</Typography>
-										<Typography
-											sx={{ display: 'block' }}
-											component="span"
-											variant="body2"
-											
-										>
-											<strong>{`Comments:${item.comments}`}</strong>
-										</Typography>
-									</React.Fragment>
-								}
-							/>
-						</ListItem>
-						<Divider  component="li" />
-					</>
-				)
-			})}
+			{isLoading ? 
+			(	<Box sx={{ display: 'flex',alignItems: 'center', flexDirection: 'column',}}>
+					<CircularProgress />
+				</Box>) :
+				issueListArray?.map((item,i)=>{
+					let cretedAt = DateConvert(item.created_at);
+					return (
+						<>
+							<ListItem 
+								alignItems="flex-start" key={i} 
+								onClick={(e) => handleRoute(item.number) }>
+							<ListItemIcon>
+								<ModeStandbyIcon fontSize="small"/>
+							</ListItemIcon>
+								<ListItemText
+									style={{cursor: "pointer"}}
+									primary={item.title}
+									secondary={
+										<React.Fragment>
+											<Typography
+												sx={{ display: 'inline' }}
+												component="span"
+												variant="body2"
+											>
+												{`#${item.number} ${item.state === "open"?"opened":""} ${cretedAt} ago by ${item.user.login}`}
+											</Typography>
+											<Typography
+												sx={{ display: 'block' }}
+												component="span"
+												variant="body2"
+												
+											>
+												<strong>{`Comments:${item.comments}`}</strong>
+											</Typography>
+										</React.Fragment>
+									}
+								/>
+							</ListItem>
+							<Divider  component="li" />
+						</>
+					)
+				})
+			}
     </List>
   );
 }
