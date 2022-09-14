@@ -57,7 +57,27 @@ const GithubIssueDetail = (props) => {
           sx={{ display: 'block' }}
           component="h1"
         >
-          <span style={{color:"#6e767e"}}><strong>{loginUser?.login}</strong> {`opened this issue on ${DateConvert(issueDetails?.created_at)}  ${issueDetails?.comments} comments`}</span>
+          <span 
+            title="Status: Open" 
+            data-view-component="true" 
+            style={{
+              color:"#fff",
+              backgroundColor:"#2da44e",  
+              display: "inline-block",
+              padding: "5px 12px",
+              fontSize: "14px",
+              fontWeight: 500,
+              lineHeight: "20px",
+              textAlign: "center",
+              whiteSpace: "nowrap",
+              borderRadius: "2em",
+              border: "1px solid transparent",
+              fill: "currentColor"
+            }}
+          >
+            <svg height="16" class="octicon octicon-issue-opened" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path><path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path></svg> Open
+          </span>
+          <span style={{color:"#6e767e"}}><strong>{" "}{loginUser?.login}</strong> {`opened this issue on ${DateConvert(issueDetails?.created_at)}  ${issueDetails?.comments} comments`}</span>
         </Typography>
         
       </Box>

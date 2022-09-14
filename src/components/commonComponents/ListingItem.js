@@ -17,7 +17,6 @@ const ListingItem = props => {
 	useEffect(() => {
 		setIssueListArray(issueList);
 	},[issueList])
-	console.log("issueListArray",issueListArray);
 
 	const handleRoute = (idNumber) =>{
 		history(`/details/${idNumber}`);
